@@ -17,12 +17,14 @@ RUN npm prune --production
 # run node-prune
 RUN /usr/local/bin/node-prune
 
-FROM node:latest
+FROM node:alpine
 
 WORKDIR /usr/src/lexbot
 
-RUN apt update && apt install python ffmpeg -y
+RUN apk update && apk add ffmpeg && rm -rf /var/cache/apk/*
 
-COPY --from=BUILD_IMAGE /usr/src/lexbot .
+COPY package.json ./
+RUN npm install --production
+COPY --from=BUILD_IMAGE /usr/src/lexbot/dist ./dist
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "dist/index.js" ]

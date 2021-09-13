@@ -17,6 +17,9 @@ RUN npm prune --production
 # run node-prune
 RUN /usr/local/bin/node-prune
 
+# remove dev dependencies
+RUN npm run build
+
 FROM node:alpine
 
 WORKDIR /usr/src/lexbot

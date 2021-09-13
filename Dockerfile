@@ -11,14 +11,13 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 # remove dev dependencies
 RUN npm prune --production
 
 # run node-prune
 RUN /usr/local/bin/node-prune
-
-# remove dev dependencies
-RUN npm run build
 
 FROM node:alpine
 

@@ -3,7 +3,7 @@ import { CallbackOptions } from '../interfaces/CallbackOptions';
 import { VERSION } from '../version';
 
 const generateReplyText = (numGuilds: number) => {
-    return `LexBot version \`${VERSION}\` by AlexOttr, running on ${numGuilds} Server${numGuilds > 1 ? 's' : ''}.`;
+    return `DJ Goofy version \`${VERSION}\` by AlexOttr#3000. uwu.`;
 };
 
 export = {

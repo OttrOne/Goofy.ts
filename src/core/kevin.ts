@@ -2,7 +2,6 @@ import { readdirSync, lstatSync } from 'fs';
 import { join } from 'path';
 import { ApplicationCommandData, Client, GuildMember, MessageEmbed, Permissions, TextBasedChannels } from 'discord.js';
 import { Command, CommandType } from '../interfaces/command';
-import { APIInteractionGuildMember } from 'discord-api-types';
 import logger from '../core/logger';
 
 /**
@@ -26,15 +25,6 @@ export class Kevin {
         description: 'print the command list',
         run: () => {},
     };
-
-    /**
-     * Typeguard to check if member is a GuildMember
-     * @param {GuildMember | APIInteractionGuildMember} member to check
-     * @returns true if is a GuildMember
-     */
-    isGuildMember(member: GuildMember | APIInteractionGuildMember): member is GuildMember {
-        return 'bannable' in member;
-    }
 
     /**
      * Create a new Kevin command handler instance
@@ -312,7 +302,7 @@ export class Kevin {
             // check if Member exists and is guild member
             const { member } = interaction;
             if (!member) return;
-            if (!this.isGuildMember(member)) return;
+            if (!(member instanceof GuildMember)) return;
 
             const command = this.commands.get(interaction.commandName);
             // command not found

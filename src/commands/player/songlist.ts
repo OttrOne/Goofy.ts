@@ -10,6 +10,11 @@ export = {
     run: async ({ message, member }: CallbackOptions) => {
 
         if (!message) return;
-        message.channel.send(songlist(member).content);
+        try {
+            await message.channel.send(songlist(member).content);
+        }
+        catch {
+            message.reply('The Playlist might be to long :c');
+        }
     },
 } as Command;

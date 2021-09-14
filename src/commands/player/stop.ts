@@ -4,6 +4,7 @@ import { stop } from '../../mods/player';
 
 export = {
     name: 'stop',
+    aliases: ['clear'],
     type: CommandType.NORMAL,
     category: 'DJ Goofy',
     description: 'Stops the current playlist.',

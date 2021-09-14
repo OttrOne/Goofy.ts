@@ -18,7 +18,7 @@ client.on('ready', () => {
     if (!client.user) return;
 
     logger.info(`LexBot v${VERSION} logged in as ${client.user.tag}!`);
-    new Kevin(client, '+');
+    new Kevin(client, '-');
     new ModLoader(client);
 });
 

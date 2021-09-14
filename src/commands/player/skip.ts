@@ -4,6 +4,7 @@ import { skip } from '../../mods/player';
 
 export = {
     name: 'skip',
+    aliases: ['next'],
     type: CommandType.NORMAL,
     category: 'DJ Goofy',
     description: 'Skips the current song.',

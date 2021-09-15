@@ -1,6 +1,7 @@
 import { Command, CommandType } from '../../interfaces/command';
 import { CallbackOptions } from '../../interfaces/CallbackOptions';
 import { skip } from '../../mods/player';
+import logger from '../../core/logger';
 
 export = {
     name: 'skip',
@@ -11,6 +12,11 @@ export = {
     run: async ({ message, member }: CallbackOptions) => {
 
         if (!message) return;
-        message.channel.send(skip(member).content);
+        try {
+            await message.channel.send(skip(member).content);
+        }
+        catch (e) {
+            logger.error(e);
+        }
     },
 } as Command;

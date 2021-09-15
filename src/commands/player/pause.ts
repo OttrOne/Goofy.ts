@@ -1,6 +1,7 @@
 import { Command, CommandType } from '../../interfaces/command';
 import { CallbackOptions } from '../../interfaces/CallbackOptions';
 import { pause } from '../../mods/player';
+import logger from '../../core/logger';
 
 export = {
     name: 'pause',
@@ -10,6 +11,11 @@ export = {
     run: async ({ message, member }: CallbackOptions) => {
 
         if (!message) return;
-        message.channel.send(pause(member).content);
+        try {
+            await message.channel.send(pause(member).content);
+        }
+        catch (e) {
+            logger.error(e);
+        }
     },
 } as Command;

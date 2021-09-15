@@ -1,6 +1,7 @@
 import { Command, CommandType } from '../../interfaces/command';
 import { CallbackOptions } from '../../interfaces/CallbackOptions';
 import { songlist } from '../../mods/player';
+import logger from '../../core/logger';
 
 export = {
     name: 'queue',
@@ -13,8 +14,9 @@ export = {
         try {
             await message.channel.send(songlist(member).content);
         }
-        catch {
-            message.reply('The Playlist might be to long :c');
+        catch (e) {
+            message.channel.send('The Playlist might be to long :c');
+            logger.error(e);
         }
     },
 } as Command;

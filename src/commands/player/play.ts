@@ -1,6 +1,7 @@
 import { Command, CommandType } from '../../interfaces/command';
 import { CallbackOptions } from '../../interfaces/CallbackOptions';
 import { play } from '../../mods/player';
+import logger from '../../core/logger';
 
 export = {
     name: 'play',
@@ -15,6 +16,11 @@ export = {
         if (!message) return;
         if (!args) return;
         if (args?.length === 0) return;
-        message.channel.send((await play(args.join(' '), member, message.channel)).content);
+        try {
+            await message.channel.send((await play(args.join(' '), member, message.channel)).content);
+        }
+        catch (e) {
+            logger.error(e);
+        }
     },
 } as Command;

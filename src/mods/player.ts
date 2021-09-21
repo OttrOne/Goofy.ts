@@ -1,4 +1,4 @@
-import { Player, QueryType, Queue, Track } from 'discord-player';
+import { Player, QueryType, Queue } from 'discord-player';
 import { Client, GuildMember, TextChannel, TextBasedChannels } from 'discord.js';
 import logger from '../core/logger';
 
@@ -38,15 +38,6 @@ export const play = async (query: string, member: GuildMember, channel: TextBase
         return { success: false, content: 'Could not join your voice channel!' };
     }
     search.playlist ? queue.addTracks(search.tracks) : queue.addTrack(search.tracks[0]);
-
-    // setting the bitrate fails sometimes.
-    try {
-        queue.setBitrate(128000);
-    }
-    catch (error) {
-        logger.error(error);
-        queue.setBitrate('auto');
-    }
 
     if (!queue.playing) await queue.play();
 
@@ -104,13 +95,14 @@ export const songlist = (member: GuildMember): IResponse => {
 export default async (client: Client) => {
 
     player = new Player(client);
+    player.use('YOUTUBE_DL', require('@discord-player/downloader').Downloader);
 
     player.on('error', (queue: Queue, error) => {
-        logger.error(`[Player] [${queue.guild.name}] Error emitted from the queue: ${error.message}`);
+        logger.error(`[Player] [${queue.guild.name}] Error emitted from the queue: ${error}`);
     });
 
     player.on('connectionError', (queue: Queue, error) => {
-        logger.error(`[Player] [${queue.guild.name}] Error emitted from the connection: ${error.message}`);
+        logger.error(`[Player] [${queue.guild.name}] Error emitted from the connection: ${error}`);
     });
 
     player.on('trackStart', (queue: Queue, track) => {

@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/OttrOne/lexbot#readme",
   "dependencies": {
+    "@discord-player/downloader": "^3.0.1",
     "@discordjs/opus": "^0.6.0",
     "discord-player": "^5.1.0",
     "discord.js": "^13.1.0",

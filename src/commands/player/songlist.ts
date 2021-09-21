@@ -7,7 +7,7 @@ export = {
     name: 'queue',
     type: CommandType.NORMAL,
     category: 'DJ Goofy',
-    description: 'Resumes the current playlist.',
+    description: 'Displays the full queue.',
     run: async ({ message, member }: CallbackOptions) => {
 
         if (!message) return;

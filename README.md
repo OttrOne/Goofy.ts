@@ -1,21 +1,43 @@
-[![GitHub license](https://badgen.net/github/license/ottrone/lexbot)](LICENSE)
-![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen)
-[![GitHub open issues](https://badgen.net/github/open-issues/ottrone/lexbot)](https://github.com/OttrOne/lexbot/issues)
+# Goofy.ts
+Simple musicbot based on [LexBot](https://github.com/OttrOne/lexbot) and [discord-player](https://www.npmjs.com/package/discord-player).
 
-# LexBot
-A port of the LexBot Discord bot template to discord.js v13 and TypeScript.
+## Commands
 
-## Setup
+| Command             | Description                             |
+| ------------------- | --------------------------------------- |
+| `-play`             | Plays a song or a playlist.             |
+| `-pause`            | Pauses the current playlist.            |
+| `-resume`           | Resumes the current playlist.           |
+| `-shuffle`          | Shuffles the current playlist.          |
+| `-skip`             | Skips the current song.                 |
+| `-stop`             | Displays the full queue.                |
+| `-queue`            | Stops the current playlist.             |
+
+## Setup via (Docker) vontainer
+
+Each commit in main leads into a docker images in the github container registry.
+
+You can pull the image via
+```bash
+docker pull ghcr.io/ottrone/goofy.ts:latest
+```
+
+and run the bot via
+```bash
+docker run --env-file .env -d --restart unless-stopped ghcr.io/ottrone/goofy.ts:latest
+```
+
+Remember to rename the `example.env` file to `.env` before and enter your token.
+
+## Setup from source (Based on LexBot)
 1. Install all dependencies via `npm install` after cloning the repo.
 
-1. Rename the `example.env` file to `.env` and add your Discord bot token.
+1. Rename the `example.env` file to `.env` and add your Discord bot token and Guild-ID for slash commands. (not necessary for global slash commands)
 ```
 TOKEN=
-DEBUG=True
+GUILD=
 ```
 `.env` is part of the `.gitignore` file so changes won't be committed.
-
-**Production environment:** remove the `DEBUG` line in the `.env`
 
 ## npm Commands
 | Command             | Description                             |
@@ -63,6 +85,3 @@ export = {
 } as Command;
 ```
 Is the `type` set to `SLASH` or `BOTH` it will be added dynamically to the Discord command list. (Remember to set up a proper `run` function for it)
-
-## Writing a mod
-*(coming soon)*

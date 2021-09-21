@@ -38,7 +38,16 @@ export const play = async (query: string, member: GuildMember, channel: TextBase
         return { success: false, content: 'Could not join your voice channel!' };
     }
     search.playlist ? queue.addTracks(search.tracks) : queue.addTrack(search.tracks[0]);
-    // queue.setBitrate(192000); caused an Encoding CTL error
+
+    // setting the bitrate fails sometimes.
+    try {
+        queue.setBitrate(128000);
+    }
+    catch (error) {
+        logger.error(error);
+        queue.setBitrate('auto');
+    }
+
     if (!queue.playing) await queue.play();
 
     return { success: true, content: 'Loaded the requested song(s)' };
